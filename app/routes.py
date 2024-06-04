@@ -59,4 +59,4 @@ def request_entity_too_large(error):
 
 @app.errorhandler(Exception)
 def handle_error(error):
-    return 'Internal Server Error', 500
+    return 'The Resource you are looking for does not exist or has been moved', 500
