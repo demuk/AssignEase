@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | AssignEase</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #54a0ff;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 100%;
+        }
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        input[type="text"], input[type="password"], select {
+            width: 90%;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #2e86de;
+            outline: none;
+            font-size: 1em;
+        }
+        input[type="text"]:focus, input[type="password"]:focus, select:focus {
+            border-color: #2e86de;
+        }
+        input[type="submit"] {
+            background-color: #1dd1a1;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #10ac84;
+        }
+        .fun-emoji {
+            font-size: 4em;
+            margin: 15px 0;
+        }
+        .links {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #fff;
+        }
+        .links a {
+            color: white;
+            text-decoration: underline;
+        }
+        .links a:hover {
+            color: #2e86de;
+        }
+        .role-specific-fields {
+            display: none;
+        }
+        .role-specific-fields input {
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Create Your Account!</h1>
+        <div class="fun-emoji">🎉📝</div>
+        <form method="POST" action="{{ url_for('register') }}">
+            <input type="text" name="username" placeholder="Choose a Username" required><br>
+            <input type="password" name="password" placeholder="Create a Password" required><br>
+
+            <select name="role" id="role" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+                <option value="administrator">Administrator</option>
+            </select><br>
+
+            <!-- Role-specific Fields -->
+            <div id="student-fields" class="role-specific-fields">
+                <input type="text" name="student_number" placeholder="Student Number"><br>
+            </div>
+            <div id="teacher-fields" class="role-specific-fields">
+                <input type="text" name="employee_id" placeholder="Employee ID"><br>
+            </div>
+            <div id="administrator-fields" class="role-specific-fields">
+                <input type="text" name="admin_code" placeholder="Admin Code"><br>
+            </div>
+
+            <input type="submit" value="Sign Up">
+        </form>
+        <div class="links">
+            Already have an account? <a href="{{ url_for('login') }}">Login here!</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('role').addEventListener('change', function() {
+            // Hide all role-specific fields
+            document.querySelectorAll('.role-specific-fields').forEach(function(div) {
+                div.style.display = 'none';
+            });
+
+            // Show the specific fields based on selected role
+            const role = this.value;
+            if (role === 'student') {
+                document.getElementById('student-fields').style.display = 'block';
+            } else if (role === 'teacher') {
+                document.getElementById('teacher-fields').style.display = 'block';
+            } else if (role === 'administrator') {
+                document.getElementById('administrator-fields').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
